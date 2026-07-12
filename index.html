@@ -7,142 +7,229 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #0d0e12; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
-        .neon-border { box-shadow: 0 0 15px rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .neon-border { box-shadow: 0 0 15px rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
         .rating-badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-        .odds-btn { background-color: #1e212b; border: 1px solid #2d3142; transition: all 0.2s; }
-        .odds-btn:hover { border-color: #06b6d4; background-color: #1a2e3b; }
+        .market-card { background-color: #15171e; border: 2px solid #232631; cursor: pointer; transition: all 0.2s ease-in-out; }
+        .market-card:hover { border-color: #06b6d4; background-color: #1a2e3b; }
+        .market-card.active { border-color: #06b6d4; background-color: #0c2436; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
+        .modal { display: none; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
-    <header class="max-w-5xl mx-auto mb-10 text-center">
-        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400 tracking-wider">EDN PREDICTION CENTER</h1>
-        <p class="text-gray-400 mt-2">Analyze Custom Group Odds & Stake Securely</p>
+    <header class="max-w-4xl mx-auto mb-8 text-center">
+        <h1 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400 tracking-wider">EDN PREDICTION CENTER</h1>
+        <p class="text-gray-400 mt-2 text-sm">Select Market, Enter Amount, and Secure Your Position</p>
     </header>
 
-    <main class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
-        <!-- Active Matchups List -->
-        <div class="lg:col-span-2 space-y-6" id="matchups-container">
-            <p class="text-gray-500">Loading active eFootball fixtures...</p>
-        </div>
-
-        <!-- Sidebar Payment Panel -->
-        <div class="space-y-6">
-            <div class="p-6 rounded-2xl bg-[#15171e] border border-gray-800">
-                <h3 class="text-xl font-bold text-amber-400 mb-3">eSewa Merchant Desk</h3>
-                <p class="text-xs text-gray-400 mb-4">Scan the QR code below to stake your pool allocations safely (Rs 10 - Rs 200).</p>
-                
-                <div class="w-full h-48 bg-white rounded-xl mb-4 flex items-center justify-center text-black font-bold p-4 text-center border-4 border-emerald-500">
-                    [ Place Your eSewa QR Code Image Here ]
-                </div>
-                
-                <p class="text-xs font-mono text-center text-emerald-400 bg-[#1e212b] py-2 rounded-lg border border-emerald-900">
-                    Limit: 1 Stake Per User / Match
-                </p>
-            </div>
-        </div>
+    <main class="max-w-4xl mx-auto space-y-6" id="matchups-container">
+        <!-- Dynamic content auto-populates here -->
     </main>
 
+    <!-- POPUP VERIFICATION SLIP MODAL -->
+    <div id="stake-modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-[#15171e] w-full max-w-md p-6 rounded-2xl border border-gray-800 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-2">
+                <h3 class="text-xl font-bold text-cyan-400">Lock in Your Stake</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+            </div>
+            
+            <!-- Summary Information Box -->
+            <div class="bg-[#0d0e12] p-3 rounded-xl border border-gray-800 text-sm space-y-1">
+                <p class="text-gray-400">Match ID: <span id="summary-match-id" class="text-white font-mono"></span></p>
+                <p class="text-gray-400">Selected Market: <span id="summary-market" class="text-emerald-400 font-bold"></span></p>
+                <p class="text-gray-400">Your Allocation: <span id="summary-stake" class="text-amber-400 font-bold"></span></p>
+            </div>
+
+            <!-- Merchant Scan Desk Section -->
+            <div class="text-center p-3 bg-white rounded-xl border-2 border-emerald-500">
+                <p class="text-[11px] text-gray-500 font-bold mb-2 uppercase tracking-wide">EDN Merchant Payment Destination</p>
+                <img src="images/esewa_qr.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="mx-auto max-h-48 object-contain rounded" alt="eSewa QR">
+                <div class="hidden py-8 text-black font-mono text-xs bg-gray-100 rounded">Place your 'esewa_qr.png' inside the images folder</div>
+            </div>
+
+            <!-- Complete Submission Form Fields linked directly to Email Routing System -->
+            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-3 text-sm">
+                <!-- Web3Forms Access Key Integration -->
+                <input type="hidden" name="access_key" value="9a9a277b-be13-48ba-82aa-a2ba91fb0bd1">
+                <input type="hidden" name="subject" value="🚨 NEW EDN MATCH STAKE SUBMISSION">
+                
+                <!-- System Pass-through Hidden Data fields to capture validation data -->
+                <input type="hidden" name="Match ID" id="form-match-id">
+                <input type="hidden" name="Predicted Market" id="form-market">
+                <input type="hidden" name="Stake Amount (Rs)" id="form-stake">
+
+                <div>
+                    <label class="block text-gray-400 mb-1 font-semibold">Facebook Display Profile Name</label>
+                    <input type="text" name="Player FB Name" required placeholder="Ex: Binaya Shrestha" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1 font-semibold">Facebook Profile Link <span class="text-xs text-gray-500">(Optional)</span></label>
+                    <input type="url" name="FB Profile URL" placeholder="https://facebook.com/username" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="block text-gray-400 mb-1 font-semibold">eSewa Reference Transaction Code</label>
+                    <input type="text" name="eSewa Txn Code" required placeholder="Ex: 94X7Y2Z" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400 font-mono">
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition tracking-wide shadow-lg mt-2">
+                    Confirm & Send to Admin Mail
+                </button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Global fallback image if gallery image path fails to load
         const defaultAvatar = "https://via.placeholder.com/150/1e212b/fff?text=eFootball";
+        let localSelections = {};
 
         async function loadFixtures() {
             const container = document.getElementById('matchups-container');
             try {
                 const response = await fetch('matches.json?cache_bust=' + Date.now());
-                if (!response.ok) throw new Error("Data file could not be read.");
-                
                 const matches = await response.json();
                 container.innerHTML = '';
 
                 if(!Array.isArray(matches) || matches.length === 0) {
-                    container.innerHTML = '<div class="p-6 text-center text-gray-500 border border-dashed border-gray-800 rounded-2xl">No active matchups listed right now. Check back soon!</div>';
+                    container.innerHTML = '<div class="p-8 text-center text-gray-500 border border-dashed border-gray-800 rounded-2xl">No upcoming matches scheduled. Check back later!</div>';
                     return;
                 }
 
                 matches.forEach(match => {
-                    // Safe properties checks to avoid web errors if properties are missing
-                    const p1Name = match.player1?.name || "Player 1";
-                    const p1Rating = match.player1?.rating || "90";
-                    const p1Img = match.player1?.image || defaultAvatar;
-
-                    const p2Name = match.player2?.name || "Player 2";
-                    const p2Rating = match.player2?.rating || "90";
-                    const p2Img = match.player2?.image || defaultAvatar;
+                    const mid = match.id;
+                    localSelections[mid] = { market: '', details: '', stake: 100 };
 
                     const card = document.createElement('div');
-                    card.className = "p-6 rounded-3xl bg-[#15171e] border border-gray-800 flex flex-col gap-6";
+                    card.className = "p-6 rounded-2xl bg-[#15171e] border border-gray-800 space-y-6 max-w-xl mx-auto animate-fade-in";
                     
                     card.innerHTML = `
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-4 w-full sm:w-2/5 justify-start sm:justify-end">
-                                <div class="text-left sm:text-right">
-                                    <h4 class="font-bold text-lg text-white">${p1Name}</h4>
-                                    <span class="rating-badge text-xs font-black px-2 py-0.5 rounded text-black">OVR ${p1Rating}</span>
+                        <div class="flex items-center justify-between gap-2 border-b border-gray-800/60 pb-4">
+                            <div class="flex flex-col items-center text-center w-[40%] space-y-1">
+                                <img src="${match.player1.image}" onerror="this.src='${defaultAvatar}'" class="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-amber-500 object-cover shadow-md shadow-black" alt="P1">
+                                <h4 class="font-bold text-sm md:text-base text-white truncate max-w-full">${match.player1.name}</h4>
+                                <span class="rating-badge text-[10px] font-black px-1.5 py-0.5 rounded text-black">OVR ${match.player1.rating}</span>
+                            </div>
+
+                            <div class="flex flex-col items-center justify-center w-[20%]">
+                                <span class="text-[9px] font-bold tracking-widest text-cyan-400 bg-[#1e212b] px-2.5 py-1 rounded-full text-center uppercase whitespace-nowrap">${match.match_type}</span>
+                                <span class="text-xs font-bold text-gray-600 mt-2">VS</span>
+                            </div>
+
+                            <div class="flex flex-col items-center text-center w-[40%] space-y-1">
+                                <img src="${match.player2.image}" onerror="this.src='${defaultAvatar}'" class="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-amber-500 object-cover shadow-md shadow-black" alt="P2">
+                                <h4 class="font-bold text-sm md:text-base text-white truncate max-w-full">${match.player2.name}</h4>
+                                <span class="rating-badge text-[10px] font-black px-1.5 py-0.5 rounded text-black">OVR ${match.player2.rating}</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block">Match Winner (Full Time)</span>
+                            <div class="grid grid-cols-3 gap-2">
+                                <div onclick="selectMarket(${mid}, '1 (${match.player1.name} Win)', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div class="text-[10px] text-gray-400 font-medium truncate">1 (${match.player1.name})</div>
+                                    <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['1']}</div>
                                 </div>
-                                <img src="${p1Img}" onerror="this.src='${defaultAvatar}'" class="w-16 h-16 rounded-full border-2 border-amber-500 object-cover" alt="P1">
+                                <div onclick="selectMarket(${mid}, 'X (Draw)', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div class="text-[10px] text-gray-400 font-medium">X (Draw)</div>
+                                    <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['X']}</div>
+                                </div>
+                                <div onclick="selectMarket(${mid}, '2 (${match.player2.name} Win)', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div class="text-[10px] text-gray-400 font-medium truncate">2 (${match.player2.name})</div>
+                                    <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['2']}</div>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="text-center bg-[#1e212b] px-4 py-1 rounded-full text-xs font-bold text-cyan-400 tracking-widest whitespace-nowrap">
-                                ${match.match_type || 'MATCHUP'}
-                            </div>
-
-                            <div class="flex items-center gap-4 w-full sm:w-2/5 justify-start">
-                                <img src="${p2Img}" onerror="this.src='${defaultAvatar}'" class="w-16 h-16 rounded-full border-2 border-amber-500 object-cover" alt="P2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div onclick="selectMarket(${mid}, 'Correct Score', this)" class="market-card p-3 rounded-xl flex items-center justify-between px-4">
                                 <div>
-                                    <h4 class="font-bold text-lg text-white">${p2Name}</h4>
-                                    <span class="rating-badge text-xs font-black px-2 py-0.5 rounded text-black">OVR ${p2Rating}</span>
+                                    <span class="text-[10px] text-amber-500 uppercase tracking-wider block font-bold">Premium Multiplier</span>
+                                    <span class="text-sm font-bold text-white">Correct Score Line</span>
+                                </div>
+                                <span class="bg-amber-500/10 text-amber-400 font-bold px-2.5 py-1 rounded-lg text-xs border border-amber-500/20">${match.odds.correct_score}x</span>
+                            </div>
+                            
+                            <div id="cs-input-area-${mid}" class="hidden flex items-center gap-2 bg-[#0d0e12] border border-gray-800 p-2 rounded-xl">
+                                <input type="number" id="score-p1-${mid}" min="0" placeholder="0" oninput="updateCSDetails(${mid})" class="w-full bg-[#15171e] border border-gray-700 rounded-lg text-center font-bold py-1.5 text-white focus:outline-none focus:border-cyan-400">
+                                <span class="text-gray-500 font-bold text-xs">-</span>
+                                <input type="number" id="score-p2-${mid}" min="0" placeholder="0" oninput="updateCSDetails(${mid})" class="w-full bg-[#15171e] border border-gray-700 rounded-lg text-center font-bold py-1.5 text-white focus:outline-none focus:border-cyan-400">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-4 pt-2 border-t border-gray-800/60">
+                            <div class="w-1/2">
+                                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide block mb-1">Your Stake Allocation</label>
+                                <div class="flex items-center bg-[#0d0e12] border border-gray-800 rounded-xl px-3 py-1.5">
+                                    <span class="text-gray-400 text-sm font-medium mr-1.5">Rs</span>
+                                    <input type="number" min="10" max="200" value="100" oninput="localSelections[${mid}].stake = this.value" class="w-full bg-transparent text-white font-bold text-sm focus:outline-none">
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-3 text-center pt-2 border-t border-gray-800">
-                            <div class="p-2 odds-btn rounded-xl">
-                                <div class="text-[10px] text-gray-400">1 (Home Win)</div>
-                                <div class="text-sm font-bold text-emerald-400">${match.odds?.full_time?.['1'] || '1.0'}</div>
-                            </div>
-                            <div class="p-2 odds-btn rounded-xl">
-                                <div class="text-[10px] text-gray-400">X (Draw)</div>
-                                <div class="text-sm font-bold text-emerald-400">${match.odds?.full_time?.['X'] || '1.0'}</div>
-                            </div>
-                            <div class="p-2 odds-btn rounded-xl">
-                                <div class="text-[10px] text-gray-400">2 (Away Win)</div>
-                                <div class="text-sm font-bold text-emerald-400">${match.odds?.full_time?.['2'] || '1.0'}</div>
+                            
+                            <div class="w-1/2 pt-4">
+                                <button onclick="processLockIn(${mid})" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md">
+                                    Lock Match Stake
+                                </button>
                             </div>
                         </div>
-
-                        <div class="grid grid-cols-4 gap-2 text-center text-xs">
-                            <div class="bg-[#111319] p-2 rounded-lg border border-gray-800">
-                                <span class="text-gray-500 block text-[9px]">1 HT</span>
-                                <span class="font-semibold text-cyan-400">${match.odds?.half_time?.['1HT'] || '1.0'}</span>
-                            </div>
-                            <div class="bg-[#111319] p-2 rounded-lg border border-gray-800">
-                                <span class="text-gray-500 block text-[9px]">X HT</span>
-                                <span class="font-semibold text-cyan-400">${match.odds?.half_time?.['XHT'] || '1.0'}</span>
-                            </div>
-                            <div class="bg-[#111319] p-2 rounded-lg border border-gray-800">
-                                <span class="text-gray-500 block text-[9px]">2 HT</span>
-                                <span class="font-semibold text-cyan-400">${match.odds?.half_time?.['2HT'] || '1.0'}</span>
-                            </div>
-                            <div class="bg-[#111319] p-2 rounded-lg border border-amber-900/40">
-                                <span class="text-amber-500 block text-[9px]">CS Avg</span>
-                                <span class="font-semibold text-amber-400">${match.odds?.correct_score || '1.0'}x</span>
-                            </div>
-                        </div>
-
-                        <a href="https://forms.google.com" target="_blank" class="w-full text-center bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-sm transition tracking-wide shadow-lg shadow-cyan-950/50">
-                            Lock Stake for This Match
-                        </a>
                     `;
                     container.appendChild(card);
                 });
-            } catch (error) {
-                console.error("Error configuration parsing error:", error);
-                container.innerHTML = '<div class="p-6 text-center text-red-500 bg-red-950/20 border border-red-900 rounded-2xl">⚠️ Tech Error: Could not load active odds setup. Check your network or repository sync.</div>';
+            } catch (e) {
+                console.error("Technical processing error: ", e);
             }
         }
+
+        function selectMarket(matchId, marketName, element) {
+            const cardParent = element.parentElement.parentElement.parentElement;
+            cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
+            
+            element.classList.add('active');
+            localSelections[matchId].market = marketName;
+            
+            const csPanel = document.getElementById(`cs-input-area-${matchId}`);
+            if (marketName === 'Correct Score') {
+                csPanel.classList.remove('hidden');
+                updateCSDetails(matchId);
+            } else {
+                if(csPanel) csPanel.classList.add('hidden');
+                localSelections[matchId].details = '';
+            }
+        }
+
+        function updateCSDetails(matchId) {
+            const s1 = document.getElementById(`score-p1-${matchId}`).value || '0';
+            const s2 = document.getElementById(`score-p2-${matchId}`).value || '0';
+            localSelections[matchId].details = ` (${s1}-${s2})`;
+        }
+
+        function processLockIn(matchId) {
+            const data = localSelections[matchId];
+            if (!data.market) {
+                alert("Please click and select a market outcome option first!");
+                return;
+            }
+            if (data.stake < 10 || data.stake > 200) {
+                alert("Validation warning: Stakes must sit strictly between Rs 10 and Rs 200.");
+                return;
+            }
+
+            const selectionLabel = `${data.market}${data.details}`.trim();
+            
+            document.getElementById('summary-match-id').textContent = matchId;
+            document.getElementById('summary-market').textContent = selectionLabel;
+            document.getElementById('summary-stake').textContent = `Rs. ${data.stake}`;
+
+            document.getElementById('form-match-id').value = matchId;
+            document.getElementById('form-market').value = selectionLabel;
+            document.getElementById('form-stake').value = data.stake;
+
+            document.getElementById('stake-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('stake-modal').style.display = 'none';
+        }
+
         window.onload = loadFixtures;
     </script>
 </body>

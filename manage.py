@@ -13,7 +13,6 @@ def load_data():
                 return []
             return json.loads(content)
     except json.JSONDecodeError:
-        print("\n[⚠️ WARNING]: matches.json was corrupted. Resetting it safely to avoid crashes.")
         save_data([])
         return []
 
@@ -33,28 +32,23 @@ def clear_all_matches():
         print("Action cancelled.")
 
 def add_matchup():
-    print("\n--- EDN PREMIUM ODDS & MATCHUP CONFIGURATOR ---")
+    print("\n--- EDN PREMIUM ODDS CONFIGURATOR ---")
     
-    p1_name = input("Player 1 Name: ").strip() or "Player 1"
+    p1_name = input("Player 1 Name (e.g., CR7): ").strip() or "Player 1"
     p1_rating = input("Player 1 OVR Rating: ").strip() or "90"
-    p1_img = input("Player 1 Image Path (e.g., images/p1.png): ").strip() or "images/default.png"
+    p1_img = input("Player 1 Image Path: ").strip() or "images/default.png"
     
-    p2_name = input("Player 2 Name: ").strip() or "Player 2"
+    p2_name = input("Player 2 Name (e.g., Messi): ").strip() or "Player 2"
     p2_rating = input("Player 2 OVR Rating: ").strip() or "90"
-    p2_img = input("Player 2 Image Path (e.g., images/p2.png): ").strip() or "images/default.png"
+    p2_img = input("Player 2 Image Path: ").strip() or "images/default.png"
     
-    match_type = input("Match Type (ULTIMATE PLAYER / ELITE LEAGUE / KNOCKOUT): ").upper().strip() or "MATCH"
+    match_type = input("Match Type (ULTIMATE PLAYER S13 / ELITE LEAGUE): ").upper().strip() or "MATCH"
     
-    print("\n--- SET YOUR ODDS ---")
+    print("\n--- SET ODDS ---")
     odds_1 = input(f"Odds for {p1_name} Win (1): ").strip() or "1.0"
     odds_x = input("Odds for Draw (X): ").strip() or "1.0"
     odds_2 = input(f"Odds for {p2_name} Win (2): ").strip() or "1.0"
-    
-    odds_ht_1 = input("Odds 1st Half - 1 HT: ").strip() or "1.0"
-    odds_ht_x = input("Odds 1st Half - X HT: ").strip() or "1.0"
-    odds_ht_2 = input("Odds 1st Half - 2 HT: ").strip() or "1.0"
-    
-    odds_cs = input("Average Correct Score Multiplier (e.g., 7.5): ").strip() or "1.0"
+    odds_cs = input("Correct Score Multiplier (e.g., 5.5): ").strip() or "5.0"
     
     data = load_data()
     
@@ -65,14 +59,13 @@ def add_matchup():
         "player2": {"name": p2_name, "rating": p2_rating, "image": p2_img},
         "odds": {
             "full_time": {"1": odds_1, "X": odds_x, "2": odds_2},
-            "half_time": {"1HT": odds_ht_1, "XHT": odds_ht_x, "2HT": odds_ht_2},
             "correct_score": odds_cs
         }
     }
     
     data.append(matchup)
     save_data(data)
-    print(f"\n✅ Success! Matchup #{matchup['id']} saved to matches.json.")
+    print(f"\n✅ Success! Matchup #{matchup['id']} saved.")
 
 def main_menu():
     while True:
@@ -80,7 +73,7 @@ def main_menu():
         print("   EDN BACKEND MANAGEMENT   ")
         print("==============================")
         print("1. Add New Matchup")
-        print("2. Clear/Reset All Matches (Remove Test Data)")
+        print("2. Clear/Reset All Matches")
         print("3. Exit Program")
         choice = input("\nEnter choice (1-3): ").strip()
         
@@ -89,10 +82,7 @@ def main_menu():
         elif choice == '2':
             clear_all_matches()
         elif choice == '3':
-            print("Goodbye!")
             break
-        else:
-            print("Invalid selection. Try again.")
 
 if __name__ == "__main__":
     main_menu()
