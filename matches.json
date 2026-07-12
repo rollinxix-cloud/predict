@@ -30,5 +30,64 @@
             ],
             "correct_score": true
         }
+    },
+    {
+        "id": 2,
+        "match_type": "",
+        "player1": {
+            "name": "hjhacl",
+            "rating": "44",
+            "image": "dvndkv"
+        },
+        "player2": {
+            "name": "66",
+            "rating": "77",
+            "image": "python manage.py"
+        },
+        "markets": {
+            "full_time": [
+                "1",
+                "X",
+                "2"
+            ],
+            "first_half": [
+                "1 HT",
+                "X HT",
+                "2 HT"
+            ],
+            "second_half": [
+                "1 FT",
+                "X FT",
+                "2 FT"
+            ],
+            "correct_score": true
+        }
+    },
+    {
+        "id": 3,
+        "match_type": "ULTIMATE PLAYER",
+        "player1": {
+            "name": "Binaya",
+            "rating": "76",
+            "image": "images/cr7.png"
+        },
+        "player2": {
+            "name": "Jon",
+            "rating": "79",
+            "image": "images/messi.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.56",
+                "X": "2.15",
+                "2": "1.67"
+            },
+            "half_time": {
+                "1HT": "1",
+                "XHT": "1",
+                "2HT": "1"
+            },
+            "correct_score": "3.4"
+        }
     }
 ]
