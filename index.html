@@ -6,7 +6,16 @@
     <title>EDN Prediction Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0d0e12; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
+        body { 
+            background-image: url('images/bg.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+            background-color: #0d0e12; 
+            color: #e2e8f0; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
         .neon-border { box-shadow: 0 0 15px rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
         .rating-badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
         .market-card { background-color: #15171e; border: 2px solid #232631; cursor: pointer; transition: all 0.2s ease-in-out; }
@@ -41,7 +50,6 @@
             </div>
 
             <div class="text-center p-3 bg-white rounded-xl border-2 border-emerald-500">
-                <p class="text-[11px] text-gray-500 font-bold mb-2 uppercase tracking-wide">EDN Merchant Payment Destination</p>
                 <img src="images/esewa_qr.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" class="mx-auto max-h-48 object-contain rounded" alt="eSewa QR">
                 <div class="hidden py-8 text-black font-mono text-xs bg-gray-100 rounded">Place your 'esewa_qr.png' inside the images folder</div>
             </div>
@@ -84,7 +92,6 @@
                 const response = await fetch('matches.json?cache_bust=' + Date.now());
                 const matches = await response.json();
                 container.innerHTML = '';
-                // ... (rest of your existing loadFixtures function)
                 matches.forEach(match => {
                     const mid = match.id;
                     localSelections[mid] = { market: '', details: '', stake: 100 };
@@ -160,7 +167,6 @@
             }
         }
 
-        // Functions for selection, code generation, and modal control
         function selectMarket(matchId, marketName, element) {
             const cardParent = element.parentElement.parentElement.parentElement;
             cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
