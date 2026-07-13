@@ -19,5 +19,27 @@
             },
             "correct_score": "1.84"
         }
+    },
+    {
+        "id": 2,
+        "match_type": "ULTIMATE PLAYER S13",
+        "player1": {
+            "name": "Kushal Karki",
+            "rating": "70 (d)",
+            "image": "images/kushal.png"
+        },
+        "player2": {
+            "name": "Siv Sunar",
+            "rating": "77",
+            "image": "images/bixu.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.53x",
+                "X": "1.7x",
+                "2": "1.41x"
+            },
+            "correct_score": "1.86"
+        }
     }
 ]
