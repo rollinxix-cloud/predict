@@ -1,1 +1,24 @@
-[]
+[
+    {
+        "id": 1,
+        "match_type": "ULTIMATE PLAYER S13",
+        "player1": {
+            "name": "Smile Xhettri",
+            "rating": "73",
+            "image": "images/smile.png"
+        },
+        "player2": {
+            "name": "Roshan B. Magar",
+            "rating": "70 (d)",
+            "image": "images/roshan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.42x",
+                "X": "1.67x",
+                "2": "1.51x"
+            },
+            "correct_score": "1.74"
+        }
+    }
+]
