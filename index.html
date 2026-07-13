@@ -30,7 +30,6 @@
         .market-card { background-color: #15171e; border: 2px solid #232631; cursor: pointer; transition: all 0.2s ease-in-out; }
         .market-card:hover { border-color: #06b6d4; background-color: #1a2e3b; }
         .market-card.active { border-color: #06b6d4; background-color: #0c2436; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
-        /* Strict hidden modal structural setup */
         #stake-modal { display: none !important; }
         #stake-modal.flex-active { display: flex !important; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
     </style>
@@ -141,7 +140,6 @@
                     const mid = match.id;
                     localSelections[mid] = { matchLabel: `${match.player1.name} VS ${match.player2.name}`, market: '', details: '', odds: 0, stake: 100 };
                     
-                    // 10/10 Smart Text-Splitting Sub-Layout for Tournament Badges
                     let matchTypeHtml = '';
                     if (match.match_type.includes('(')) {
                         const parts = match.match_type.split('(');
@@ -255,19 +253,33 @@
 
         function selectMarket(matchId, marketName, oddsValue, element) {
             const cardParent = element.parentElement.parentElement.parentElement;
-            cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
             
-            localSelections[matchId].market = marketName;
-            localSelections[matchId].odds = parseFloat(String(oddsValue).replace('x', '')) || 0;
-            
-            const csPanel = document.getElementById(`cs-input-area-${matchId}`);
-            if (marketName === 'Correct Score') {
-                csPanel.classList.remove('hidden');
-                updateCSDetails(matchId);
-            } else {
-                if(csPanel) csPanel.classList.add('hidden');
+            // Toggle Logic: Check if the card clicked is already active
+            if (element.classList.contains('active')) {
+                // Clear selection if clicked a second time
+                element.classList.remove('active');
+                localSelections[matchId].market = '';
+                localSelections[matchId].odds = 0;
                 localSelections[matchId].details = '';
+                
+                const csPanel = document.getElementById(`cs-input-area-${matchId}`);
+                if (csPanel) csPanel.classList.add('hidden');
+            } else {
+                // Select market option and deactivate neighbors
+                cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
+                element.classList.add('active');
+                
+                localSelections[matchId].market = marketName;
+                localSelections[matchId].odds = parseFloat(String(oddsValue).replace('x', '')) || 0;
+                
+                const csPanel = document.getElementById(`cs-input-area-${matchId}`);
+                if (marketName === 'Correct Score') {
+                    csPanel.classList.remove('hidden');
+                    updateCSDetails(matchId);
+                } else {
+                    if (csPanel) csPanel.classList.add('hidden');
+                    localSelections[matchId].details = '';
+                }
             }
             
             updatePotentialPayout(matchId);
@@ -295,7 +307,6 @@
             displayElem.textContent = "Rs. " + (calculated % 1 === 0 ? calculated.toFixed(0) : calculated.toFixed(2));
         }
 
-        // Live Accumulator Calculations Engine
         function calculateMultiBetSlip() {
             let activeCount = 0;
             let totalMultiplier = 1.0;
@@ -336,7 +347,6 @@
             return `EDN${randomNum}UP`;
         }
 
-        // Individual Pick Single Bet Validation Flow
         function processLockIn(matchId) {
             const data = localSelections[matchId];
             if (!data.market) {
@@ -366,7 +376,6 @@
             document.getElementById('stake-modal').classList.add('flex-active');
         }
 
-        // Global Multi-Bet Accumulator Verification Flow
         function processMultiLockIn() {
             const multiStake = parseInt(document.getElementById('multi-stake-input').value) || 0;
             if (multiStake < 10 || multiStake > 200) {
@@ -413,4 +422,3 @@
     </script>
 </body>
 </html>
-
