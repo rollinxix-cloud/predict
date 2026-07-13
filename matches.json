@@ -61,5 +61,26 @@
             },
             "correct_score": "1.76"
         }
+    },
+    {
+        "id": 4,
+        "match_type": "ULTIMATE PLAYER S13",
+        "player1": {
+            "name": "D Yozon King",
+            "rating": "75",
+            "image": "images/yozon.png"
+        },
+        "player2": {
+            "name": "Ashman Titung",
+            "rating": "82",
+            "image": "images/ashman.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.32x",
+                "2": "1.41x"
+            },
+            "correct_score": "1.73"
+        }
     }
 ]
