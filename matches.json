@@ -24,27 +24,6 @@
         "id": 2,
         "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
-            "name": "Kushal Karki",
-            "rating": "70 (d)",
-            "image": "images/kushal.png"
-        },
-        "player2": {
-            "name": "Siv Sunar",
-            "rating": "77",
-            "image": "images/bixu.png"
-        },
-        "odds": {
-            "to_qualify": {
-                "1": "1.57x",
-                "2": "1.31x"
-            },
-            "correct_score": "1.86"
-        }
-    },
-    {
-        "id": 3,
-        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
-        "player1": {
             "name": "Basnet Umesh",
             "rating": "70 (d)",
             "image": "images/bixu.png"
@@ -63,7 +42,7 @@
         }
     },
     {
-        "id": 4,
+        "id": 3,
         "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "D Yozon King",
@@ -84,7 +63,7 @@
         }
     },
     {
-        "id": 5,
+        "id": 4,
         "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "Subash Tamang",
