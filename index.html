@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDN Prediction Center</title>
 
-    <!-- Facebook / Messenger Link Preview Optimization -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rollinxix-cloud.github.io/predict/">
     <meta property="og:title" content="EDN PREDICTION CENTER">
     <meta property="og:description" content="Select your market, enter your allocation amount, and secure your match position live.">
-    <!-- Points to your custom preview banner image in your repository -->
     <meta property="og:image" content="https://rollinxix-cloud.github.io/predict/images/og-banner.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -26,9 +24,9 @@
             background-color: #0d0e12; 
             color: #e2e8f0; 
             font-family: 'Segoe UI', sans-serif; 
+            padding-bottom: 120px; /* Space so bottom multi slip doesn't block layout */
         }
         .neon-border { box-shadow: 0 0 15px rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
-        .rating-badge { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
         .market-card { background-color: #15171e; border: 2px solid #232631; cursor: pointer; transition: all 0.2s ease-in-out; }
         .market-card:hover { border-color: #06b6d4; background-color: #1a2e3b; }
         .market-card.active { border-color: #06b6d4; background-color: #0c2436; box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
@@ -49,6 +47,31 @@
     <main class="max-w-4xl mx-auto space-y-6" id="matchups-container">
     </main>
 
+    <div id="multi-bet-slip" class="fixed bottom-0 left-0 right-0 bg-[#15171e] border-t-2 border-cyan-500 shadow-[0_-5px_25px_rgba(6,182,212,0.15)] p-4 transform translate-y-full transition-transform duration-300 z-40 hidden">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-center sm:text-left">
+                <span class="bg-cyan-500/10 text-cyan-400 font-black text-[10px] tracking-wider uppercase px-2 py-0.5 rounded border border-cyan-500/20">Multi-Bet Accumulator Active</span>
+                <div class="text-sm font-bold mt-1 text-white">
+                    Selected Matches: <span id="multi-count" class="text-cyan-400">0</span> | 
+                    Total Odds: <span id="multi-odds" class="text-emerald-400 font-mono">1.00x</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 w-full sm:w-auto justify-end">
+                <div class="w-36">
+                    <div class="flex items-center bg-[#0d0e12] border border-gray-800 rounded-xl px-2.5 py-1.5">
+                        <span class="text-gray-400 text-xs font-medium mr-1">Rs</span>
+                        <input type="number" id="multi-stake-input" min="10" max="200" value="100" oninput="updateMultiPayout()" class="w-full bg-transparent text-white font-bold text-xs focus:outline-none">
+                    </div>
+                    <div class="text-[9px] mt-0.5 text-gray-400 font-medium text-right">Est: <span id="multi-payout-display" class="text-emerald-400 font-bold font-mono">Rs. 0</span></div>
+                </div>
+                <button onclick="processMultiLockIn()" class="bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-500 hover:to-emerald-500 text-white font-black py-2.5 px-6 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md whitespace-nowrap">
+                    Lock Accumulator Slip
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="stake-modal" class="fixed inset-0 z-50 items-center justify-center p-4 overflow-y-auto">
         <div class="bg-[#15171e] w-full max-w-md p-6 rounded-2xl border border-gray-800 space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-gray-800 pb-2">
@@ -58,8 +81,8 @@
             
             <div class="bg-[#0d0e12] p-3 rounded-xl border border-gray-800 text-sm space-y-1">
                 <p class="text-gray-400">Ticket: <span id="summary-ticket" class="text-cyan-400 font-mono font-bold"></span></p>
-                <p class="text-gray-400">Selected Market: <span id="summary-market" class="text-emerald-400 font-bold"></span></p>
-                <p class="text-gray-400">Your Allocation: <span id="summary-stake" class="text-amber-400 font-bold"></span></p>
+                <div class="text-gray-400">Selected Selection(s): <div id="summary-market" class="text-emerald-400 font-bold text-xs mt-1 whitespace-pre-line leading-relaxed"></div></div>
+                <p class="text-gray-400 mt-2">Your Allocation: <span id="summary-stake" class="text-amber-400 font-bold"></span></p>
                 <p class="text-gray-400">Potential Payout: <span id="summary-payout" class="text-cyan-400 font-bold font-mono"></span></p>
             </div>
 
@@ -72,13 +95,12 @@
                 </a>
             </div>
 
-            <!-- Free-Tier Web3Forms Form Configuration -->
             <form action="https://api.web3forms.com/submit" method="POST" class="space-y-3 text-sm">
                 <input type="hidden" name="access_key" value="9a9a277b-be13-48ba-82aa-a2ba91fb0bd1">
                 <input type="hidden" name="subject" value="🚨 NEW EDN MATCH STAKE SUBMISSION">
                 
                 <input type="hidden" name="Generated Ticket Code" id="form-ticket">
-                <input type="hidden" name="Predicted Market" id="form-market">
+                <input type="hidden" name="Predicted Market Outcome" id="form-market">
                 <input type="hidden" name="Stake Amount (Rs)" id="form-stake">
                 <input type="hidden" name="Calculated Payout" id="form-payout">
 
@@ -91,7 +113,6 @@
                     <input type="url" name="FB Profile URL" placeholder="https://facebook.com/username" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
                 </div>
                 
-                <!-- Reliable Text Input Verification Code -->
                 <div>
                     <label class="block text-gray-400 mb-1 font-semibold">eSewa Transaction ID / Reference Code</label>
                     <input type="text" name="eSewa Txn Code" required placeholder="Ex: 94X7Y2Z" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400 font-mono uppercase tracking-wider">
@@ -107,17 +128,18 @@
     <script>
         const defaultAvatar = "https://via.placeholder.com/150/1e212b/fff?text=eFootball";
         let localSelections = {};
+        let matchesData = [];
 
         async function loadFixtures() {
             const container = document.getElementById('matchups-container');
             try {
                 const response = await fetch('matches.json?cache_bust=' + Date.now());
-                const matches = await response.json();
+                matchesData = await response.json();
                 container.innerHTML = '';
                 
-                matches.forEach(match => {
+                matchesData.forEach(match => {
                     const mid = match.id;
-                    localSelections[mid] = { market: '', details: '', odds: 0, stake: 100 };
+                    localSelections[mid] = { matchLabel: `${match.player1.name} VS ${match.player2.name}`, market: '', details: '', odds: 0, stake: 100 };
                     
                     // 10/10 Smart Text-Splitting Sub-Layout for Tournament Badges
                     let matchTypeHtml = '';
@@ -177,12 +199,10 @@
                     const card = document.createElement('div');
                     card.className = "p-6 rounded-2xl bg-[#15171e] border border-gray-800 space-y-6 max-w-xl mx-auto";
                     card.innerHTML = `
-                        <!-- Pro Mobile Row Optimization Layout -->
                         <div class="flex items-center justify-between gap-1 border-b border-gray-800/60 pb-4">
                             <div class="flex flex-col items-center text-center w-[35%] space-y-1">
                                 <img src="${match.player1.image}" onerror="this.src='${defaultAvatar}'" class="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-amber-500 object-cover shadow-md shadow-black" alt="P1">
                                 <h4 class="font-bold text-sm md:text-base text-white truncate max-w-full">${match.player1.name}</h4>
-                                <span class="rating-badge text-[10px] font-black px-1.5 py-0.5 rounded text-black">OVR ${match.player1.rating}</span>
                             </div>
                             <div class="flex flex-col items-center justify-center flex-1 min-w-[30%] self-center">
                                 ${matchTypeHtml}
@@ -191,7 +211,6 @@
                             <div class="flex flex-col items-center text-center w-[35%] space-y-1">
                                 <img src="${match.player2.image}" onerror="this.src='${defaultAvatar}'" class="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-amber-500 object-cover shadow-md shadow-black" alt="P2">
                                 <h4 class="font-bold text-sm md:text-base text-white truncate max-w-full">${match.player2.name}</h4>
-                                <span class="rating-badge text-[10px] font-black px-1.5 py-0.5 rounded text-black">OVR ${match.player2.rating}</span>
                             </div>
                         </div>
                         
@@ -213,7 +232,7 @@
                         </div>
                         <div class="flex items-center justify-between gap-4 pt-2 border-t border-gray-800/60">
                             <div class="w-1/2">
-                                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide block mb-1">Your Stake Allocation</label>
+                                <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wide block mb-1">Your Single Stake</label>
                                 <div class="flex items-center bg-[#0d0e12] border border-gray-800 rounded-xl px-3 py-1.5">
                                     <span class="text-gray-400 text-sm font-medium mr-1.5">Rs</span>
                                     <input type="number" min="10" max="200" value="100" oninput="localSelections[${mid}].stake = parseInt(this.value) || 0; updatePotentialPayout(${mid});" class="w-full bg-transparent text-white font-bold text-sm focus:outline-none">
@@ -222,7 +241,7 @@
                             </div>
                             <div class="w-1/2 pt-4">
                                 <button onclick="processLockIn(${mid})" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md">
-                                    Lock Match Stake
+                                    Lock Single Stake
                                 </button>
                             </div>
                         </div>
@@ -252,12 +271,14 @@
             }
             
             updatePotentialPayout(matchId);
+            calculateMultiBetSlip();
         }
 
         function updateCSDetails(matchId) {
             const s1 = document.getElementById(`score-p1-${matchId}`).value || '0';
             const s2 = document.getElementById(`score-p2-${matchId}`).value || '0';
             localSelections[matchId].details = ` (${s1}-${s2})`;
+            calculateMultiBetSlip();
         }
 
         function updatePotentialPayout(matchId) {
@@ -274,11 +295,48 @@
             displayElem.textContent = "Rs. " + (calculated % 1 === 0 ? calculated.toFixed(0) : calculated.toFixed(2));
         }
 
+        // Live Accumulator Calculations Engine
+        function calculateMultiBetSlip() {
+            let activeCount = 0;
+            let totalMultiplier = 1.0;
+            
+            for (const mid in localSelections) {
+                if (localSelections[mid].market) {
+                    activeCount++;
+                    totalMultiplier *= localSelections[mid].odds;
+                }
+            }
+            
+            const slipPanel = document.getElementById('multi-bet-slip');
+            if (activeCount >= 2) {
+                slipPanel.classList.remove('hidden');
+                slipPanel.classList.remove('translate-y-full');
+                
+                document.getElementById('multi-count').textContent = activeCount;
+                document.getElementById('multi-odds').textContent = (totalMultiplier % 1 === 0 ? totalMultiplier.toFixed(0) : totalMultiplier.toFixed(2)) + 'x';
+                updateMultiPayout();
+            } else {
+                slipPanel.classList.add('translate-y-full');
+                setTimeout(() => { if (activeCount < 2) slipPanel.classList.add('hidden'); }, 300);
+            }
+        }
+
+        function updateMultiPayout() {
+            let totalMultiplier = 1.0;
+            for (const mid in localSelections) {
+                if (localSelections[mid].market) totalMultiplier *= localSelections[mid].odds;
+            }
+            const stake = parseInt(document.getElementById('multi-stake-input').value) || 0;
+            const calculated = stake * totalMultiplier;
+            document.getElementById('multi-payout-display').textContent = "Rs. " + (calculated % 1 === 0 ? calculated.toFixed(0) : calculated.toFixed(2));
+        }
+
         function generateTicketCode() {
             const randomNum = Math.floor(Math.random() * 190) + 10;
             return `EDN${randomNum}UP`;
         }
 
+        // Individual Pick Single Bet Validation Flow
         function processLockIn(matchId) {
             const data = localSelections[matchId];
             if (!data.market) {
@@ -289,7 +347,7 @@
                 alert("Validation warning: Stakes must sit strictly between Rs 10 and Rs 200.");
                 return;
             }
-            const selectionLabel = `${data.market}${data.details}`.trim();
+            const selectionLabel = `SINGLE BET:\n[${data.matchLabel}] -> ${data.market}${data.details}`.trim();
             const uniqueTicket = generateTicketCode();
             
             const totalPayout = data.stake * data.odds;
@@ -303,6 +361,45 @@
             document.getElementById('form-ticket').value = uniqueTicket;
             document.getElementById('form-market').value = selectionLabel;
             document.getElementById('form-stake').value = data.stake;
+            document.getElementById('form-payout').value = payoutString;
+
+            document.getElementById('stake-modal').classList.add('flex-active');
+        }
+
+        // Global Multi-Bet Accumulator Verification Flow
+        function processMultiLockIn() {
+            const multiStake = parseInt(document.getElementById('multi-stake-input').value) || 0;
+            if (multiStake < 10 || multiStake > 200) {
+                alert("Validation warning: Multi-bet stakes must sit strictly between Rs 10 and Rs 200.");
+                return;
+            }
+
+            let textSummary = "ACCUMULATOR SLIP MULTI-BET:\n";
+            let activeCount = 0;
+            let combinedOdds = 1.0;
+
+            for (const mid in localSelections) {
+                const data = localSelections[mid];
+                if (data.market) {
+                    activeCount++;
+                    combinedOdds *= data.odds;
+                    textSummary += `• [${data.matchLabel}]: ${data.market}${data.details} (${data.odds}x)\n`;
+                }
+            }
+            
+            textSummary += `Combined Slips Multiplier: ${combinedOdds.toFixed(2)}x`;
+            const uniqueTicket = generateTicketCode();
+            const totalPayout = multiStake * combinedOdds;
+            const payoutString = "Rs. " + (totalPayout % 1 === 0 ? totalPayout.toFixed(0) : totalPayout.toFixed(2));
+
+            document.getElementById('summary-ticket').textContent = uniqueTicket;
+            document.getElementById('summary-market').textContent = textSummary.trim();
+            document.getElementById('summary-stake').textContent = `Rs. ${multiStake}`;
+            document.getElementById('summary-payout').textContent = payoutString;
+
+            document.getElementById('form-ticket').value = uniqueTicket;
+            document.getElementById('form-market').value = textSummary.trim();
+            document.getElementById('form-stake').value = multiStake;
             document.getElementById('form-payout').value = payoutString;
 
             document.getElementById('stake-modal').classList.add('flex-active');
