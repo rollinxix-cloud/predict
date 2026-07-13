@@ -82,5 +82,26 @@
             },
             "correct_score": "1.73"
         }
+    },
+    {
+        "id": 5,
+        "match_type": "ULTIMATE PLAYER S13",
+        "player1": {
+            "name": "Subash Tamang",
+            "rating": "88",
+            "image": "images/subash.png"
+        },
+        "player2": {
+            "name": "Ganesh Nepali",
+            "rating": "71",
+            "image": "images/ganesh.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.2x",
+                "2": "1.48x"
+            },
+            "correct_score": "1.78"
+        }
     }
 ]
