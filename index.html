@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDN Prediction Center</title>
+
+    <!-- Facebook / Messenger Link Preview Optimization -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rollinxix-cloud.github.io/predict/">
+    <meta property="og:title" content="EDN PREDICTION CENTER">
+    <meta property="og:description" content="Select your market, enter your allocation amount, and secure your match position live.">
+    <!-- Points to your custom preview banner image in your repository -->
+    <meta property="og:image" content="https://rollinxix-cloud.github.io/predict/images/og-banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
@@ -61,7 +72,7 @@
                 </a>
             </div>
 
-            <!-- Restored Free-Tier Compatible Form Structure -->
+            <!-- Free-Tier Web3Forms Form Configuration -->
             <form action="https://api.web3forms.com/submit" method="POST" class="space-y-3 text-sm">
                 <input type="hidden" name="access_key" value="9a9a277b-be13-48ba-82aa-a2ba91fb0bd1">
                 <input type="hidden" name="subject" value="🚨 NEW EDN MATCH STAKE SUBMISSION">
@@ -80,7 +91,7 @@
                     <input type="url" name="FB Profile URL" placeholder="https://facebook.com/username" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400">
                 </div>
                 
-                <!-- Optimized Text Verification Field -->
+                <!-- Reliable Text Input Verification Code -->
                 <div>
                     <label class="block text-gray-400 mb-1 font-semibold">eSewa Transaction ID / Reference Code</label>
                     <input type="text" name="eSewa Txn Code" required placeholder="Ex: 94X7Y2Z" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2.5 text-white focus:outline-none focus:border-cyan-400 font-mono uppercase tracking-wider">
@@ -108,6 +119,7 @@
                     const mid = match.id;
                     localSelections[mid] = { market: '', details: '', odds: 0, stake: 100 };
                     
+                    // 10/10 Smart Text-Splitting Sub-Layout for Tournament Badges
                     let matchTypeHtml = '';
                     if (match.match_type.includes('(')) {
                         const parts = match.match_type.split('(');
@@ -165,6 +177,7 @@
                     const card = document.createElement('div');
                     card.className = "p-6 rounded-2xl bg-[#15171e] border border-gray-800 space-y-6 max-w-xl mx-auto";
                     card.innerHTML = `
+                        <!-- Pro Mobile Row Optimization Layout -->
                         <div class="flex items-center justify-between gap-1 border-b border-gray-800/60 pb-4">
                             <div class="flex flex-col items-center text-center w-[35%] space-y-1">
                                 <img src="${match.player1.image}" onerror="this.src='${defaultAvatar}'" class="w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-amber-500 object-cover shadow-md shadow-black" alt="P1">
@@ -221,7 +234,6 @@
             }
         }
 
-        /* [Rest of helper script logic remains untouched for 10/10 functionality] */
         function selectMarket(matchId, marketName, oddsValue, element) {
             const cardParent = element.parentElement.parentElement.parentElement;
             cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
