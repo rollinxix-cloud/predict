@@ -13,12 +13,11 @@
             "image": "images/roshan.png"
         },
         "odds": {
-            "full_time": {
+            "to_qualify": {
                 "1": "1.42x",
-                "X": "1.67x",
                 "2": "1.51x"
             },
-            "correct_score": "1.74"
+            "correct_score": "1.84"
         }
     }
 ]
