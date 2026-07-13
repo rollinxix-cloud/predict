@@ -34,9 +34,8 @@
             "image": "images/bixu.png"
         },
         "odds": {
-            "full_time": {
-                "1": "1.53x",
-                "X": "1.7x",
+            "to_qualify": {
+                "1": "1.67x",
                 "2": "1.41x"
             },
             "correct_score": "1.86"
