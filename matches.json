@@ -40,5 +40,26 @@
             },
             "correct_score": "1.86"
         }
+    },
+    {
+        "id": 3,
+        "match_type": "ULTIMATE PLAYERS S13",
+        "player1": {
+            "name": "Basnet Umesh",
+            "rating": "70 (d)",
+            "image": "images/bixu.png"
+        },
+        "player2": {
+            "name": "Amax Hood",
+            "rating": "88",
+            "image": "images/amax.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.52x",
+                "2": "1.18x"
+            },
+            "correct_score": "1.76"
+        }
     }
 ]
