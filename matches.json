@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "match_type": "ULTIMATE PLAYER S13",
+        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "Smile Xhettri",
             "rating": "73",
@@ -22,7 +22,7 @@
     },
     {
         "id": 2,
-        "match_type": "ULTIMATE PLAYER S13",
+        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "Kushal Karki",
             "rating": "70 (d)",
@@ -43,7 +43,7 @@
     },
     {
         "id": 3,
-        "match_type": "ULTIMATE PLAYERS S13",
+        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "Basnet Umesh",
             "rating": "70 (d)",
@@ -64,7 +64,7 @@
     },
     {
         "id": 4,
-        "match_type": "ULTIMATE PLAYER S13",
+        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "D Yozon King",
             "rating": "75",
@@ -85,7 +85,7 @@
     },
     {
         "id": 5,
-        "match_type": "ULTIMATE PLAYER S13",
+        "match_type": "ULTIMATE PLAYER S13 (ROUND OF 16)",
         "player1": {
             "name": "Subash Tamang",
             "rating": "88",
