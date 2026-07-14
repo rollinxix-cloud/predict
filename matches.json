@@ -82,5 +82,26 @@
             },
             "correct_score": "1.78"
         }
+    },
+    {
+        "id": 5,
+        "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
+        "player1": {
+            "name": "Bixu Thapa",
+            "rating": "90",
+            "image": "images/bixu.png"
+        },
+        "player2": {
+            "name": "\u092c\u0938\u0928\u094d\u0924 \u0924\u093e\u092e\u093e\u0919",
+            "rating": "90",
+            "image": "images/basan.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.13x",
+                "2": "1.46x"
+            },
+            "correct_score": "1.89"
+        }
     }
 ]
