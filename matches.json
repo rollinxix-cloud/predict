@@ -1,5 +1,4 @@
 [
-   
     {
         "id": 1,
         "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
@@ -40,6 +39,48 @@
                 "2": "1.47x"
             },
             "correct_score": "1.99"
+        }
+    },
+    {
+        "id": 3,
+        "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
+        "player1": {
+            "name": "Shrestha Sakar",
+            "rating": "90",
+            "image": "images/sakar.png"
+        },
+        "player2": {
+            "name": "Amax Hood",
+            "rating": "90",
+            "image": "images/amax.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.21x",
+                "2": "1.35x"
+            },
+            "correct_score": "1.97"
+        }
+    },
+    {
+        "id": 4,
+        "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
+        "player1": {
+            "name": "Ashman Titing",
+            "rating": "90",
+            "image": "images/ashman.png"
+        },
+        "player2": {
+            "name": "Subash Tamang",
+            "rating": "90",
+            "image": "images/subash.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.26x",
+                "2": "1.4x"
+            },
+            "correct_score": "1.87"
         }
     }
 ]
