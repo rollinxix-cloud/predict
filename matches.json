@@ -22,48 +22,6 @@
     },
     {
         "id": 2,
-        "match_type": "ULTIMATE BPLAYER S13 (QUATERFINAL)",
-        "player1": {
-            "name": "Siv Sunar",
-            "rating": "90",
-            "image": "images/bixu.png"
-        },
-        "player2": {
-            "name": "Roshan B. Magar",
-            "rating": "90",
-            "image": "images/roshan.png"
-        },
-        "odds": {
-            "to_qualify": {
-                "1": "1.38x",
-                "2": "1.45x"
-            },
-            "correct_score": "1.99"
-        }
-    },
-    {
-        "id": 3,
-        "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
-        "player1": {
-            "name": "Shrestha Sakar",
-            "rating": "90",
-            "image": "images/sakar.png"
-        },
-        "player2": {
-            "name": "Amax Hood",
-            "rating": "90",
-            "image": "images/amax.png"
-        },
-        "odds": {
-            "to_qualify": {
-                "1": "1.21x",
-                "2": "1.35x"
-            },
-            "correct_score": "1.97"
-        }
-    },
-    {
-        "id": 4,
         "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
         "player1": {
             "name": "Ashman Titing",
