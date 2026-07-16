@@ -19,26 +19,6 @@
             },
             "correct_score": "1.89"
         }
-    },
-    {
-        "id": 2,
-        "match_type": "ULTIMATE PLAYER S13 (QUATERFINAL)",
-        "player1": {
-            "name": "Ashman Titing",
-            "rating": "90",
-            "image": "images/ashman.png"
-        },
-        "player2": {
-            "name": "Subash Tamang",
-            "rating": "90",
-            "image": "images/subash.png"
-        },
-        "odds": {
-            "to_qualify": {
-                "1": "1.4x",
-                "2": "1.25x"
-            },
-            "correct_score": "1.87"
-        }
+    
     }
 ]
