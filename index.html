@@ -167,6 +167,12 @@
                 matchesData = await response.json();
                 container.innerHTML = '';
                 
+                // Show dynamic placeholder notice if the array is empty
+                if (!matchesData || matchesData.length === 0) {
+                    showNoMatchesNotice(container);
+                    return;
+                }
+                
                 matchesData.forEach(match => {
                     const mid = match.id;
                     localSelections[mid] = { matchLabel: `${match.player1.name} VS ${match.player2.name}`, market: '', details: '', odds: 0, stake: 100 };
@@ -279,7 +285,27 @@
                 });
             } catch (e) {
                 console.error("Technical processing error: ", e);
+                showNoMatchesNotice(container);
             }
+        }
+
+        // Clean, beautifully stylized alert notification for missing/finished matchups
+        function showNoMatchesNotice(container) {
+            container.innerHTML = `
+                <div class="text-center p-8 md:p-12 rounded-2xl bg-[#15171e] border border-gray-800 space-y-5 max-w-xl mx-auto neon-border mt-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-cyan-500/10 text-cyan-400 animate-pulse border border-cyan-500/20">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-black text-white uppercase tracking-wider">No Matches Available</h3>
+                        <p class="text-gray-400 text-sm max-w-xs mx-auto leading-relaxed">
+                            All match fixtures have finished. There are no active predictions right now. <strong class="text-cyan-400 block mt-1">Stay tuned!</strong>
+                        </p>
+                    </div>
+                </div>
+            `;
         }
 
         function selectMarket(matchId, marketName, oddsValue, element) {
@@ -317,7 +343,6 @@
             calculateMultiBetSlip();
         }
 
-        // Keep standard helper calculations as they were
         function updateCSDetails(matchId) {
             const s1 = document.getElementById(`score-p1-${matchId}`).value || '0';
             const s2 = document.getElementById(`score-p2-${matchId}`).value || '0';
