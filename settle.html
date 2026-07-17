@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDN Ticket Settlement Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body { 
+            background-color: #0d0e12; 
+            color: #e2e8f0; 
+            font-family: 'Segoe UI', sans-serif; 
+        }
+        .neon-win-border { 
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25); 
+            border: 2px solid rgba(16, 185, 129, 0.5); 
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-5xl mx-auto">
+
+    <header class="mb-8 border-b border-gray-800 pb-4">
+        <h1 class="text-2xl font-black text-emerald-400 tracking-wider uppercase">
+            🏆 EDN Winner Ticket Generator
+        </h1>
+        <p class="text-gray-400 text-xs mt-1">Fill out the details below to instantly generate a premium, verifiable winning receipt image.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        
+        <!-- LEFT COLUMN: ADMIN INPUT CONTROLS -->
+        <div class="bg-[#15171e] p-6 rounded-2xl border border-gray-800 space-y-4">
+            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-800 pb-2">Ticket Controls</h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Ticket ID</label>
+                    <input type="text" id="input-ticket" value="EDN142UP" oninput="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white font-mono text-sm focus:outline-none focus:border-emerald-400 uppercase">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Bet Classification</label>
+                    <select id="input-type" onchange="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white text-sm focus:outline-none focus:border-emerald-400">
+                        <option value="SINGLE BET WIN">Single Bet</option>
+                        <option value="ACCUMULATOR MULTI-BET WIN">Accumulator Multi-Bet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1">Player / Winner Name</label>
+                <input type="text" id="input-name" value="Binaya Shrestha" oninput="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white text-sm focus:outline-none focus:border-emerald-400">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-400 mb-1">Predictions & Match Details (Pasted from Order)</label>
+                <textarea id="input-market" rows="4" oninput="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white text-xs font-mono focus:outline-none focus:border-emerald-400 leading-relaxed">[Shrestha Sakar VS Bixu Thapa] -> To Win Competition (Shrestha Sakar)
+• Combined Slips Multiplier: 1.48x</textarea>
+                <span class="text-[10px] text-gray-500 block mt-0.5">Tip: You can press enter for multiple lines on multi-bets.</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Stake Amount (Rs.)</label>
+                    <input type="number" id="input-stake" value="100" oninput="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white text-sm focus:outline-none focus:border-emerald-400 font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Total Payout (Rs.)</label>
+                    <input type="number" id="input-payout" value="148" oninput="updatePreview()" class="w-full bg-[#0d0e12] border border-gray-700 rounded-xl p-2 text-white text-sm focus:outline-none focus:border-emerald-400 font-mono">
+                </div>
+            </div>
+
+            <button onclick="downloadWinningSlip()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black py-3 rounded-xl text-xs uppercase tracking-wider transition-all shadow-md mt-2">
+                📸 Export & Download Winning Slip PNG
+            </button>
+        </div>
+
+        <!-- RIGHT COLUMN: LIVE TICKET PREVIEW CARD -->
+        <div class="space-y-4 sticky top-4">
+            <h2 class="text-sm font-bold text-gray-400 uppercase tracking-widest">Live Output Preview</h2>
+            
+            <!-- EXPORT TARGET CARD -->
+            <div id="winning-receipt-card" class="bg-[#0d0e12] p-6 rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-b from-[#0d0e12] to-[#111814] space-y-4 relative overflow-hidden max-w-md mx-auto neon-win-border">
+                
+                <!-- Huge Diagonal Victory Background Stamp -->
+                <div class="absolute -right-6 -bottom-6 opacity-[0.04] text-emerald-400 font-black text-9xl tracking-tighter rotate-12 pointer-events-none select-none font-serif">WIN</div>
+                
+                <!-- Top Header Header Badge -->
+                <div class="flex items-center justify-between border-b border-gray-800/80 pb-3">
+                    <div>
+                        <span id="preview-badge" class="bg-emerald-500/10 text-emerald-400 font-black text-[10px] tracking-widest uppercase px-2.5 py-1 rounded border border-emerald-500/30 shadow-sm block w-fit">
+                            SINGLE BET WIN
+                        </span>
+                        <div class="text-[10px] text-gray-500 mt-1 font-medium">Verified Winner: <span id="preview-name" class="text-white font-bold">Binaya Shrestha</span></div>
+                    </div>
+                    
+                    <div class="text-right">
+                        <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">TICKET ID</span>
+                        <span id="preview-ticket" class="text-emerald-400 font-mono font-black text-base tracking-wider">EDN142UP</span>
+                    </div>
+                </div>
+
+                <!-- Green "CONGRATS" Ribbon Graphic -->
+                <div class="bg-gradient-to-r from-emerald-900/40 via-emerald-600/20 to-emerald-900/40 border-y border-emerald-500/30 py-2 text-center rounded-lg">
+                    <span class="text-xs font-black tracking-widest text-emerald-400 uppercase block drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">
+                        💸 TICKET SETTLED • PAID OUT 🏆
+                    </span>
+                </div>
+
+                <!-- Outcomes Section -->
+                <div class="space-y-2">
+                    <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">SETTLED MARKET POSITION(S)</span>
+                    <div id="preview-market" class="text-gray-200 font-medium text-xs whitespace-pre-line leading-relaxed bg-[#15171e] p-3 rounded-xl border border-gray-800/80 font-mono">
+                        [Shrestha Sakar VS Bixu Thapa] -> To Win Competition (Shrestha Sakar)
+                        • Combined Slips Multiplier: 1.48x
+                    </div>
+                </div>
+
+                <!-- Financial Row Grid -->
+                <div class="grid grid-cols-2 gap-4 pt-2 border-t border-gray-800/60">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">TOTAL STAKE</span>
+                        <span id="preview-stake" class="text-gray-400 font-black text-sm font-mono">Rs. 100</span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-emerald-500 font-bold block tracking-wider">NET PROFIT DISBURSED</span>
+                        <span id="preview-payout" class="text-emerald-400 font-black text-base font-mono drop-shadow-[0_0_10px_rgba(52,211,153,0.4)]">Rs. 148</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function updatePreview() {
+            // Pull text from fields
+            const ticket = document.getElementById('input-ticket').value.toUpperCase();
+            const type = document.getElementById('input-type').value;
+            const name = document.getElementById('input-name').value;
+            const market = document.getElementById('input-market').value;
+            const stake = document.getElementById('input-stake').value || '0';
+            const payout = document.getElementById('input-payout').value || '0';
+
+            // Push text directly into the preview graphics window instantly
+            document.getElementById('preview-ticket').textContent = ticket || '---';
+            document.getElementById('preview-badge').textContent = type;
+            document.getElementById('preview-name').textContent = name || 'Anonymous';
+            document.getElementById('preview-market').textContent = market || 'No selections specified.';
+            document.getElementById('preview-stake').textContent = `Rs. ${stake}`;
+            document.getElementById('preview-payout').textContent = `Rs. ${payout}`;
+        }
+
+        function downloadWinningSlip() {
+            const element = document.getElementById('winning-receipt-card');
+            const ticketId = document.getElementById('input-ticket').value || "WINNER";
+
+            html2canvas(element, {
+                backgroundColor: '#0d0e12',
+                scale: 3, // Super clean, crisp high-res layout scale
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `${ticketId}_WINNING_SLIP.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                console.error("Canvas receipt export failed:", err);
+                alert("Could not automatically compile receipt image file.");
+            });
+        }
+        
+        // Populate initial structure layout elements cleanly on boot
+        updatePreview();
+    </script>
+</body>
+</html>
