@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDN Winner Ticket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- HTML2Canvas Library for Image Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body { 
+            background-color: #08090b; /* Extra dark background to make the ticket pop */
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .neon-glow {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+        }
+        .bg-pattern {
+            background-image: radial-gradient(circle at center, #1a2e3b 0%, #0d0e12 100%);
+        }
+        /* Stamp effect */
+        .stamp {
+            transform: rotate(-15deg);
+            border: 4px solid #10b981;
+            color: #10b981;
+            padding: 4px 16px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-radius: 8px;
+            letter-spacing: 4px;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4), inset 0 0 10px rgba(16, 185, 129, 0.4);
+            text-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.05);
+        }
+    </style>
+</head>
+<body class="p-6">
+
+    <div class="max-w-md w-full flex flex-col gap-6 items-center">
+        
+        <!-- EXPORTABLE WINNER TICKET -->
+        <div id="winner-receipt" class="w-full bg-[#0d0e12] rounded-2xl border-2 border-emerald-500 neon-glow relative overflow-hidden flex flex-col">
+            
+            <!-- Background Branding -->
+            <div class="absolute inset-0 bg-pattern opacity-60 pointer-events-none"></div>
+            <div class="absolute right-[-20px] bottom-[-20px] opacity-5 text-emerald-500 font-black text-8xl tracking-widest pointer-events-none select-none z-0">WIN</div>
+
+            <!-- Top Header -->
+            <div class="bg-[#15171e] border-b border-gray-800 p-5 relative z-10 flex justify-between items-start">
+                <div>
+                    <span class="text-[10px] uppercase tracking-widest text-emerald-500 font-bold block mb-1">Winning Ticket ID</span>
+                    <span class="text-white font-mono font-black text-2xl tracking-wider">EDN99UP</span>
+                </div>
+                <div class="flex flex-col items-end">
+                    <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold block mb-1">Player</span>
+                    <span class="text-cyan-400 font-bold text-lg uppercase tracking-wide">Ganesh Nepali</span>
+                </div>
+            </div>
+
+            <!-- Match Details -->
+            <div class="p-5 relative z-10 space-y-4">
+                
+                <div class="absolute top-4 right-4 z-20">
+                    <div class="stamp mt-6 mr-2">PAID</div>
+                </div>
+
+                <div>
+                    <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold block mb-2">Accumulator Slip Multi-Bet</span>
+                    <ul class="space-y-3">
+                        <li class="bg-[#15171e] p-3 rounded-xl border border-emerald-500/30 flex items-start gap-3 shadow-md">
+                            <span class="text-emerald-500 mt-0.5 text-lg">✅</span>
+                            <div>
+                                <div class="text-[11px] text-gray-400 font-bold">[Bixu Thapa VS बसन्त तामाङ]</div>
+                                <div class="text-white text-xs font-bold mt-1">To Qualify (Bixu Thapa) <span class="text-emerald-400 font-mono ml-1">(1.13x)</span></div>
+                            </div>
+                        </li>
+                        <li class="bg-[#15171e] p-3 rounded-xl border border-emerald-500/30 flex items-start gap-3 shadow-md">
+                            <span class="text-emerald-500 mt-0.5 text-lg">✅</span>
+                            <div>
+                                <div class="text-[11px] text-gray-400 font-bold">[Siv Sunar VS Roshan B. Magar]</div>
+                                <div class="text-white text-xs font-bold mt-1">To Qualify (Siv Sunar) <span class="text-emerald-400 font-mono ml-1">(1.38x)</span></div>
+                            </div>
+                        </li>
+                        <li class="bg-[#15171e] p-3 rounded-xl border border-emerald-500/30 flex items-start gap-3 shadow-md">
+                            <span class="text-emerald-500 mt-0.5 text-lg">✅</span>
+                            <div>
+                                <div class="text-[11px] text-gray-400 font-bold">[Shrestha Sakar VS Amax Hood]</div>
+                                <div class="text-white text-xs font-bold mt-1">To Qualify (Shrestha Sakar) <span class="text-emerald-400 font-mono ml-1">(1.21x)</span></div>
+                            </div>
+                        </li>
+                        <li class="bg-[#15171e] p-3 rounded-xl border border-emerald-500/30 flex items-start gap-3 shadow-md">
+                            <span class="text-emerald-500 mt-0.5 text-lg">✅</span>
+                            <div>
+                                <div class="text-[11px] text-gray-400 font-bold">[Ashman Titing VS Subash Tamang]</div>
+                                <div class="text-white text-xs font-bold mt-1">To Qualify (Subash Tamang) <span class="text-emerald-400 font-mono ml-1">(1.25x)</span></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer / Financials -->
+            <div class="bg-[#15171e] border-t border-gray-800 p-5 relative z-10 flex justify-between items-end">
+                <div class="space-y-3 w-1/2">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">Combined Odds</span>
+                        <span class="text-white font-mono font-bold text-sm">2.36x</span>
+                    </div>
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">Allocation / Stake</span>
+                        <span class="text-amber-400 font-mono font-bold text-base">Rs. 50</span>
+                    </div>
+                </div>
+                
+                <div class="w-1/2 text-right">
+                    <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block mb-1">Total Payout</span>
+                    <span class="text-emerald-400 font-mono font-black text-3xl">Rs.117.93</span>
+                </div>
+            </div>
+            
+            <!-- Bottom Accent Line -->
+            <div class="h-1.5 w-full bg-gradient-to-r from-emerald-600 via-emerald-400 to-cyan-500 relative z-10"></div>
+        </div>
+
+        <!-- Download Button -->
+        <button onclick="downloadWinnerGraphic()" class="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-black py-4 px-6 rounded-xl text-sm uppercase tracking-wider transition-all shadow-[0_4px_15px_rgba(16,185,129,0.3)]">
+            📸 Download Winner Graphic
+        </button>
+
+    </div>
+
+    <script>
+        function downloadWinnerGraphic() {
+            const element = document.getElementById('winner-receipt');
+            
+            html2canvas(element, {
+                backgroundColor: '#08090b', 
+                scale: 3, // Very high resolution for clean social media posting
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `EDN99UP_Winner_Ganesh.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                console.error("Canvas export failed:", err);
+                alert("Could not generate image. Please take a manual screenshot.");
+            });
+        }
+    </script>
+</body>
+</html>

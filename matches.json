@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "id": 1,
+        "match_type": "ULTIMATE PLAYER S3 (FINAL)",
+        "player1": {
+            "name": "Shrestha Sakar",
+            "rating": "90",
+            "image": "images/sakar.png"
+        },
+        "player2": {
+            "name": "Bixu Thapa",
+            "rating": "90",
+            "image": "images/bixu.png"
+        },
+        "odds": {
+            "to qualify": {
+                "1": "1.48",
+                "2": "1.1.45"
+            },
+            "correct_score": "2.36"
+        }
+    }
+]
