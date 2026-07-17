@@ -83,9 +83,8 @@
                 <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
             </div>
             
-            <!-- EXPORTABLE TICKET CARD (Captures beautifully as PNG) -->
+            <!-- EXPORTABLE TICKET CARD -->
             <div id="receipt-card" class="bg-[#0d0e12] p-4 rounded-xl border border-cyan-500/30 space-y-3 relative overflow-hidden">
-                <!-- Inner Decorative Brand Watermark -->
                 <div class="absolute right-3 top-3 opacity-10 text-cyan-400 font-black text-2xl tracking-widest pointer-events-none select-none">EDN</div>
                 
                 <div class="flex items-center justify-between border-b border-gray-800 pb-2">
@@ -93,9 +92,8 @@
                         <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold block">TICKET ID</span>
                         <span id="summary-ticket" class="text-cyan-400 font-mono font-black text-base tracking-wider"></span>
                     </div>
-                    <!-- Receipt Download Button -->
                     <button type="button" id="save-slip-btn" onclick="downloadReceiptImage()" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:border-cyan-400 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                        📸 Save Slip
+                        💾 Save Slip
                     </button>
                 </div>
 
@@ -127,7 +125,7 @@
 
             <form action="https://api.web3forms.com/submit" method="POST" class="space-y-3 text-sm">
                 <input type="hidden" name="access_key" value="9a9a277b-be13-48ba-82aa-a2ba91fb0bd1">
-                <input type="hidden" name="subject" value="🚨 NEW EDN MATCH STAKE SUBMISSION">
+                <input type="hidden" name="subject" value="🔥 NEW EDN MATCH STAKE SUBMISSION">
                 
                 <input type="hidden" name="Generated Ticket Code" id="form-ticket">
                 <input type="hidden" name="Predicted Market Outcome" id="form-market">
@@ -167,7 +165,6 @@
                 matchesData = await response.json();
                 container.innerHTML = '';
                 
-                // Show dynamic placeholder notice if the array is empty
                 if (!matchesData || matchesData.length === 0) {
                     showNoMatchesNotice(container);
                     return;
@@ -192,39 +189,48 @@
                         `;
                     }
                     
+                    const toQualifyOdds = match.odds ? (match.odds.to_qualify || match.odds['to qualify']) : null;
+                    const fullTimeOdds = match.odds ? (match.odds.full_time || match.odds['full time']) : null;
+                    
                     let primaryMarketHtml = '';
-                    if (match.odds.to_qualify) {
+                    if (toQualifyOdds) {
+                        // Dynamic calculation: Changes text automatically if the match type is labeled as a FINAL
+                        const isFinal = match.match_type && match.match_type.toUpperCase().includes('FINAL');
+                        const headingText = isFinal ? "To Win The Competition" : "To Qualify (2-Leg Aggregate)";
+                        const marketLabelText = isFinal ? "To Win Competition" : "To Qualify";
+                        const buttonSuffix = isFinal ? "to Win Trophy" : "to Advance";
+
                         primaryMarketHtml = `
                             <div class="space-y-2">
-                                <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block">To Qualify (2-Leg Aggregate)</span>
+                                <span class="text-xs font-semibold text-cyan-400 uppercase tracking-wider block">${headingText}</span>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <div onclick="selectMarket(${mid}, 'To Qualify (${match.player1.name})', '${match.odds.to_qualify['1']}', this)" class="market-card p-4 rounded-xl text-center">
-                                        <div class="text-[11px] text-gray-400 font-medium truncate">${match.player1.name} to Advance</div>
-                                        <div class="text-lg font-bold text-emerald-400 mt-1">${match.odds.to_qualify['1']}</div>
+                                    <div onclick="selectMarket(${mid}, '${marketLabelText} (${match.player1.name})', '${toQualifyOdds['1']}', this)" class="market-card p-4 rounded-xl text-center">
+                                        <div class="text-[11px] text-gray-400 font-medium truncate">${match.player1.name} ${buttonSuffix}</div>
+                                        <div class="text-lg font-bold text-emerald-400 mt-1">${toQualifyOdds['1']}</div>
                                     </div>
-                                    <div onclick="selectMarket(${mid}, 'To Qualify (${match.player2.name})', '${match.odds.to_qualify['2']}', this)" class="market-card p-4 rounded-xl text-center">
-                                        <div class="text-[11px] text-gray-400 font-medium truncate">${match.player2.name} to Advance</div>
-                                        <div class="text-lg font-bold text-emerald-400 mt-1">${match.odds.to_qualify['2']}</div>
+                                    <div onclick="selectMarket(${mid}, '${marketLabelText} (${match.player2.name})', '${toQualifyOdds['2']}', this)" class="market-card p-4 rounded-xl text-center">
+                                        <div class="text-[11px] text-gray-400 font-medium truncate">${match.player2.name} ${buttonSuffix}</div>
+                                        <div class="text-lg font-bold text-emerald-400 mt-1">${toQualifyOdds['2']}</div>
                                     </div>
                                 </div>
                             </div>
                         `;
-                    } else if (match.odds.full_time) {
+                    } else if (fullTimeOdds) {
                         primaryMarketHtml = `
                             <div class="space-y-2">
                                 <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block">Match Winner (Full Time)</span>
                                 <div class="grid grid-cols-3 gap-2">
-                                    <div onclick="selectMarket(${mid}, '1 (${match.player1.name} Win)', '${match.odds.full_time['1']}', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div onclick="selectMarket(${mid}, '1 (${match.player1.name} Win)', '${fullTimeOdds['1']}', this)" class="market-card p-3 rounded-xl text-center">
                                         <div class="text-[10px] text-gray-400 font-medium truncate">1 (${match.player1.name})</div>
-                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['1']}</div>
+                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${fullTimeOdds['1']}</div>
                                     </div>
-                                    <div onclick="selectMarket(${mid}, 'X (Draw)', '${match.odds.full_time['X']}', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div onclick="selectMarket(${mid}, 'X (Draw)', '${fullTimeOdds['X']}', this)" class="market-card p-3 rounded-xl text-center">
                                         <div class="text-[10px] text-gray-400 font-medium">X (Draw)</div>
-                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['X']}</div>
+                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${fullTimeOdds['X']}</div>
                                     </div>
-                                    <div onclick="selectMarket(${mid}, '2 (${match.player2.name} Win)', '${match.odds.full_time['2']}', this)" class="market-card p-3 rounded-xl text-center">
+                                    <div onclick="selectMarket(${mid}, '2 (${match.player2.name} Win)', '${fullTimeOdds['2']}', this)" class="market-card p-3 rounded-xl text-center">
                                         <div class="text-[10px] text-gray-400 font-medium truncate">2 (${match.player2.name})</div>
-                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${match.odds.full_time['2']}</div>
+                                        <div class="text-base font-bold text-emerald-400 mt-0.5">${fullTimeOdds['2']}</div>
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +295,6 @@
             }
         }
 
-        // Clean, beautifully stylized alert notification for missing/finished matchups
         function showNoMatchesNotice(container) {
             container.innerHTML = `
                 <div class="text-center p-8 md:p-12 rounded-2xl bg-[#15171e] border border-gray-800 space-y-5 max-w-xl mx-auto neon-border mt-6">
@@ -311,9 +316,7 @@
         function selectMarket(matchId, marketName, oddsValue, element) {
             const cardParent = element.parentElement.parentElement.parentElement;
             
-            // Toggle Logic: Check if the card clicked is already active
             if (element.classList.contains('active')) {
-                // Clear selection if clicked a second time
                 element.classList.remove('active');
                 localSelections[matchId].market = '';
                 localSelections[matchId].odds = 0;
@@ -322,7 +325,6 @@
                 const csPanel = document.getElementById(`cs-input-area-${matchId}`);
                 if (csPanel) csPanel.classList.add('hidden');
             } else {
-                // Select market option and deactivate neighbors
                 cardParent.querySelectorAll('.market-card').forEach(c => c.classList.remove('active'));
                 element.classList.add('active');
                 
@@ -471,42 +473,36 @@
             document.getElementById('stake-modal').classList.add('flex-active');
         }
 
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
         function closeModal() {
             document.getElementById('stake-modal').classList.remove('flex-active');
         }
 
-        // Renders `#receipt-card` into a high-quality .png image and triggers download
         function downloadReceiptImage() {
             const element = document.getElementById('receipt-card');
             const ticketId = document.getElementById('summary-ticket').textContent || "TICKET";
             const downloadBtn = document.getElementById('save-slip-btn');
             
-            // Temporarily hide the download button so it doesn't show in the screenshot image
-            if (downloadBtn) {
-                downloadBtn.style.visibility = 'hidden';
-            }
+            if (downloadBtn) downloadBtn.style.visibility = 'hidden';
 
             html2canvas(element, {
-                backgroundColor: '#0d0e12', // Match the receipt background color perfectly
-                scale: 2, // Capture high-resolution image
+                backgroundColor: '#0d0e12',
+                scale: 2,
                 logging: false,
                 useCORS: true
             }).then(canvas => {
-                // Restore button visibility
-                if (downloadBtn) {
-                    downloadBtn.style.visibility = 'visible';
-                }
+                if (downloadBtn) downloadBtn.style.visibility = 'visible';
 
-                // Generate and download image link
                 const link = document.createElement('a');
                 link.download = `${ticketId}_slip.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             }).catch(err => {
                 console.error("Canvas receipt export failed:", err);
-                if (downloadBtn) {
-                    downloadBtn.style.visibility = 'visible';
-                }
+                if (downloadBtn) downloadBtn.style.visibility = 'visible';
                 alert("Sorry, could not generate slip image. Please take a manual screenshot instead.");
             });
         }
