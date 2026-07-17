@@ -13,7 +13,7 @@
             "image": "images/bixu.png"
         },
         "odds": {
-            "to qualify": {
+            "to_qualify": {
                 "1": "1.48",
                 "2": "1.45"
             },
