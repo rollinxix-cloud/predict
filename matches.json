@@ -42,5 +42,49 @@
             },
             "correct_score": "2.57"
         }
+    },
+    {
+        "id": 3,
+        "match_type": "ELITE LEAGUE S7 (MD1)",
+        "player1": {
+            "name": "Binaya Shrestha",
+            "rating": "90",
+            "image": "images/binaya.png"
+        },
+        "player2": {
+            "name": "\u0916\u0947\u092e \u0909\u092a\u093e\u0927\u094d\u092f\u093e\u092f",
+            "rating": "90",
+            "image": "images/khem.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.53",
+                "X": "1.9",
+                "2": "1.35"
+            },
+            "correct_score": "2.6"
+        }
+    },
+    {
+        "id": 4,
+        "match_type": "ELITE LEAGUE S7 (MD1)",
+        "player1": {
+            "name": "Ashman Titung",
+            "rating": "90",
+            "image": "images/ashman.png"
+        },
+        "player2": {
+            "name": "Ex Clamation Mark",
+            "rating": "90",
+            "image": "images/ex.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.28",
+                "X": "1.84",
+                "2": "1.35"
+            },
+            "correct_score": "2.53"
+        }
     }
 ]
