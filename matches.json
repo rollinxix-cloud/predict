@@ -113,28 +113,6 @@
         "id": 6,
         "match_type": "ELITE LEAGUE S7 (MD1)",
         "player1": {
-            "name": "Hab II",
-            "rating": "90",
-            "image": "images/hab.png"
-        },
-        "player2": {
-            "name": "Ram Bahadur Gharti",
-            "rating": "90",
-            "image": "images/ram.png"
-        },
-        "odds": {
-            "full_time": {
-                "1": "1.14",
-                "X": "2.76",
-                "2": "2.3"
-            },
-            "correct_score": "1.6"
-        }
-    },
-    {
-        "id": 7,
-        "match_type": "ELITE LEAGUE S7 (MD1)",
-        "player1": {
             "name": "Roshan B. Magar",
             "rating": "90",
             "image": "images/roshan.png"
@@ -154,7 +132,7 @@
         }
     },
     {
-        "id": 8,
+        "id": 7,
         "match_type": "ELITE LEAGUE S7 (MD1)",
         "player1": {
             "name": "Subash Tamang",
@@ -176,7 +154,7 @@
         }
     },
     {
-        "id": 9,
+        "id": 8,
         "match_type": "ELITE LEAGUE S7 (MD1)",
         "player1": {
             "name": "Manjil Crestha",
