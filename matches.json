@@ -69,28 +69,6 @@
         "id": 4,
         "match_type": "ELITE LEAGUE S7 (MD2)",
         "player1": {
-            "name": "Ram Bahadur Gharti",
-            "rating": "90",
-            "image": "images/ram.png"
-        },
-        "player2": {
-            "name": "Binaya Shrestha",
-            "rating": "90",
-            "image": "images/binaya.png"
-        },
-        "odds": {
-            "full_time": {
-                "1": "1.21",
-                "X": "1.78",
-                "2": "1.29"
-            },
-            "correct_score": "2.13"
-        }
-    },
-    {
-        "id": 5,
-        "match_type": "ELITE LEAGUE S7 (MD2)",
-        "player1": {
             "name": "Ganesh Nepali",
             "rating": "90",
             "image": "images/ganesh.png"
@@ -110,7 +88,7 @@
         }
     },
     {
-        "id": 6,
+        "id": 5,
         "match_type": "ELITE LEAGUE S7 (MD3)",
         "player1": {
             "name": "Namsang Subba",
@@ -132,7 +110,7 @@
         }
     },
     {
-        "id": 7,
+        "id": 6,
         "match_type": "ELITE LEAGUE S7 (MD3)",
         "player1": {
             "name": "Hab II",
@@ -154,7 +132,7 @@
         }
     },
     {
-        "id": 8,
+        "id": 7,
         "match_type": "ELITE LEAGUE S7 (MD3)",
         "player1": {
             "name": "Roshan B. Magar",
@@ -176,7 +154,7 @@
         }
     },
     {
-        "id": 9,
+        "id": 8,
         "match_type": "ELITE LEAGUE S7 (MD4)",
         "player1": {
             "name": "Aashik Gurung",
