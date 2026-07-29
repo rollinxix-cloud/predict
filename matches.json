@@ -1,6 +1,5 @@
 [
-    
-        {
+    {
         "id": 1,
         "match_type": "ELITE LEAGUE S7 (MD1)",
         "player1": {
@@ -108,6 +107,28 @@
                 "2": "2.23"
             },
             "correct_score": "1.88"
+        }
+    },
+    {
+        "id": 6,
+        "match_type": "ELITE LEAGUE S7 (MD2)",
+        "player1": {
+            "name": "Ram Bahadur Gharti",
+            "rating": "90",
+            "image": "images/ram.png"
+        },
+        "player2": {
+            "name": "Binaya Shrestha",
+            "rating": "90",
+            "image": "images/binaya.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.21",
+                "X": "1.78",
+                "2": "1.29"
+            },
+            "correct_score": "2.13"
         }
     }
 ]
