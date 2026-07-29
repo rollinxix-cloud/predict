@@ -1,5 +1,4 @@
 [
-    
     {
         "id": 1,
         "match_type": "ELITE LEAGUE S7 (MD1)",
@@ -86,6 +85,116 @@
                 "2": "1.29"
             },
             "correct_score": "2.13"
+        }
+    },
+    {
+        "id": 5,
+        "match_type": "ELITE LEAGUE S7 (MD2)",
+        "player1": {
+            "name": "Ganesh Nepali",
+            "rating": "90",
+            "image": "images/ganesh.png"
+        },
+        "player2": {
+            "name": "Roshan B. Magar",
+            "rating": "90",
+            "image": "images/roshan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.45",
+                "X": "2.11",
+                "2": "1.35"
+            },
+            "correct_score": "2.11"
+        }
+    },
+    {
+        "id": 6,
+        "match_type": "ELITE LEAGUE S7 (MD3)",
+        "player1": {
+            "name": "Namsang Subba",
+            "rating": "90",
+            "image": "images/namsang.png"
+        },
+        "player2": {
+            "name": "Suman Limbu",
+            "rating": "90",
+            "image": "images/suman.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.51",
+                "X": "1.68",
+                "2": "1.59"
+            },
+            "correct_score": "2.35"
+        }
+    },
+    {
+        "id": 7,
+        "match_type": "ELITE LEAGUE S7 (MD3)",
+        "player1": {
+            "name": "Hab II",
+            "rating": "90",
+            "image": "images/hab.png"
+        },
+        "player2": {
+            "name": "Manjil Crestha",
+            "rating": "90",
+            "image": "images/manjil.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.52",
+                "X": "1.83",
+                "2": "1.45"
+            },
+            "correct_score": "2.13"
+        }
+    },
+    {
+        "id": 8,
+        "match_type": "ELITE LEAGUE S7 (MD3)",
+        "player1": {
+            "name": "Roshan B. Magar",
+            "rating": "90",
+            "image": "images/roshan.png"
+        },
+        "player2": {
+            "name": "Subash Tamang",
+            "rating": "90",
+            "image": "images/subash2.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.42",
+                "X": "1.7",
+                "2": "1.37"
+            },
+            "correct_score": "1.99"
+        }
+    },
+    {
+        "id": 9,
+        "match_type": "ELITE LEAGUE S7 (MD4)",
+        "player1": {
+            "name": "Aashik Gurung",
+            "rating": "90",
+            "image": "images/aash.png"
+        },
+        "player2": {
+            "name": "\u092c\u0938\u0928\u094d\u0924 \u0924\u093e\u092e\u093e\u0919",
+            "rating": "90",
+            "image": "images/basan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.34",
+                "X": "1.76",
+                "2": "1.34"
+            },
+            "correct_score": "1.84"
         }
     }
 ]
