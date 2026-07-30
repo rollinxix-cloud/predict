@@ -1,1 +1,68 @@
-[]
+[
+    {
+        "id": 1,
+        "match_type": "ELITE LEAGUE S7 (MD5)",
+        "player1": {
+            "name": "Suman Limbu",
+            "rating": "90",
+            "image": "images/suman.png"
+        },
+        "player2": {
+            "name": "\u0930\u093f\u091c\u0928 \u092e\u0939\u0930\u094d\u091c\u0928",
+            "rating": "90",
+            "image": "images/rijan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.37",
+                "X": "1.87",
+                "2": "1.32"
+            },
+            "correct_score": "1.99"
+        }
+    },
+    {
+        "id": 2,
+        "match_type": "ELITE LEAGUE (MD5)",
+        "player1": {
+            "name": "Smile Xettri",
+            "rating": "90",
+            "image": "images/smile.png"
+        },
+        "player2": {
+            "name": "Ganesh Nepali",
+            "rating": "90",
+            "image": "images/ganesh.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.34",
+                "X": "1.86",
+                "2": "1.32"
+            },
+            "correct_score": "1.8"
+        }
+    },
+    {
+        "id": 3,
+        "match_type": "ELITE LEAGUE (MD6)",
+        "player1": {
+            "name": "Manjil Crestha",
+            "rating": "90",
+            "image": "images/manjil.png"
+        },
+        "player2": {
+            "name": "Dipesh Khadka",
+            "rating": "90",
+            "image": "images/dipesh.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.38",
+                "X": "1.94",
+                "2": "1.41"
+            },
+            "correct_score": "1.87"
+        }
+    }
+]
