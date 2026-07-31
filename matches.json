@@ -1,33 +1,143 @@
 [
     {
         "id": 1,
-        "match_type": "ELITE LEAGUE S7 (MD5)",
+        "match_type": "ELITE LEAGUE S7 (MD8)",
+        "player1": {
+            "name": "Subash Tamang",
+            "rating": "90",
+            "image": "images/subash2.png"
+        },
+        "player2": {
+            "name": "Ex Clamation Mark",
+            "rating": "90",
+            "image": "images/ex.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.21",
+                "X": "1.74",
+                "2": "1.32"
+            },
+            "correct_score": "1.88"
+        }
+    },
+    {
+        "id": 2,
+        "match_type": "ELITE LEAGUE S7 (MD8)",
+        "player1": {
+            "name": "Siv Sunar",
+            "rating": "90",
+            "image": "images/bixu.png"
+        },
+        "player2": {
+            "name": "\u092c\u0938\u0928\u094d\u0924 \u0924\u093e\u092e\u093e\u0919",
+            "rating": "90",
+            "image": "images/basan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.25",
+                "X": "1.77",
+                "2": "1.29"
+            },
+            "correct_score": "1.93"
+        }
+    },
+    {
+        "id": 3,
+        "match_type": "ELITE LEAGUE S7 (MD9)",
+        "player1": {
+            "name": "Ram Bahadur Gharti",
+            "rating": "90",
+            "image": "images/ram.png"
+        },
+        "player2": {
+            "name": "Roshan B. Magar",
+            "rating": "90",
+            "image": "images/roshan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.33",
+                "X": "1.81",
+                "2": "1.34"
+            },
+            "correct_score": "1.77"
+        }
+    },
+    {
+        "id": 4,
+        "match_type": "ELITE LEAGUE S7 (MD9)",
         "player1": {
             "name": "Suman Limbu",
             "rating": "90",
             "image": "images/suman.png"
         },
         "player2": {
-            "name": "\u0930\u093f\u091c\u0928 \u092e\u0939\u0930\u094d\u091c\u0928",
+            "name": "Binaya Shrestha",
             "rating": "90",
-            "image": "images/rijan.png"
+            "image": "images/binaya.png"
         },
         "odds": {
             "full_time": {
-                "1": "1.37",
-                "X": "1.87",
-                "2": "1.32"
+                "1": "1.25",
+                "X": "1.67",
+                "2": "1.31"
             },
-            "correct_score": "1.99"
+            "correct_score": "1.97"
         }
     },
     {
-        "id": 2,
-        "match_type": "ELITE LEAGUE (MD6)",
+        "id": 5,
+        "match_type": "ELITE LEAGUE S7 (MD9)",
         "player1": {
-            "name": "Manjil Crestha",
+            "name": "Dipesh Khadka",
             "rating": "90",
-            "image": "images/manjil.png"
+            "image": "images/dipesh.png"
+        },
+        "player2": {
+            "name": "Siv Sunar",
+            "rating": "90",
+            "image": "images/bixu.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.42",
+                "X": "1.72",
+                "2": "1.4"
+            },
+            "correct_score": "1.93"
+        }
+    },
+    {
+        "id": 6,
+        "match_type": "ELITE LEAGUE S7 (MD9)",
+        "player1": {
+            "name": "Smile Xettri",
+            "rating": "90",
+            "image": "images/smile.png"
+        },
+        "player2": {
+            "name": "बसन्त तामाङ",
+            "rating": "90",
+            "image": "images/basan.png"
+        },
+        "odds": {
+            "full_time": {
+                "1": "1.36",
+                "X": "1.69",
+                "2": "1.36"
+            },
+            "correct_score": "1.88"
+        }
+    },
+    {
+        "id": 7,
+        "match_type": "ELITE LEAGUE S7 (MD10)",
+        "player1": {
+            "name": "Smile Xettri",
+            "rating": "90",
+            "image": "images/smile.png"
         },
         "player2": {
             "name": "Dipesh Khadka",
@@ -36,9 +146,9 @@
         },
         "odds": {
             "full_time": {
-                "1": "1.38",
-                "X": "1.94",
-                "2": "1.41"
+                "1": "1.32",
+                "X": "1.62",
+                "2": "1.27"
             },
             "correct_score": "1.87"
         }
