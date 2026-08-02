@@ -1,28 +1,6 @@
 [
     {
         "id": 1,
-        "match_type": "ELITE LEAGUE S7 (MD9)",
-        "player1": {
-            "name": "Smile Xettri",
-            "rating": "90",
-            "image": "images/smile.png"
-        },
-        "player2": {
-            "name": "बसन्त तामाङ",
-            "rating": "90",
-            "image": "images/basan.png"
-        },
-        "odds": {
-            "full_time": {
-                "1": "1.36",
-                "X": "1.69",
-                "2": "1.36"
-            },
-            "correct_score": "1.88"
-        }
-    },
-    {
-        "id": 2,
         "match_type": "ELITE LEAGUE S7 (MD10)",
         "player1": {
             "name": "Smile Xettri",
