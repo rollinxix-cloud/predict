@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "id": 1,
+        "match_type": "ULTIMATE PLAYER S14 (Grand Final)",
+        "player1": {
+            "name": "\u092c\u0938\u0928\u094d\u0924 \u0924\u093e\u092e\u093e\u0919",
+            "rating": "90",
+            "image": "images/basan.png"
+        },
+        "player2": {
+            "name": "Ashman Titung",
+            "rating": "90",
+            "image": "images/ashman.png"
+        },
+        "odds": {
+            "to_qualify": {
+                "1": "1.76",
+                "2": "1.75"
+            },
+            "correct_score": "2.45"
+        }
+    }
+]
